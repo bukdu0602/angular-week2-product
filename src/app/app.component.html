@@ -1,0 +1,98 @@
+<h1>{{title}}</h1>
+<br>
+
+<!-- personal info -->
+<form #myForm="ngForm">
+<label for="firName">First Name</label>
+<input name="firName" [(ngModel)]="fName" pattern="[a-zA-Z'\- ]*" name="firstName" #firstName="ngModel">
+<br>
+<label for="laName">Last Name</label>
+<input name="laName" [(ngModel)]="lName" pattern="[a-zA-Z'\- ]*" name="lastName" #lastName="ngModel">
+<br>
+<label for="adr">Street Address</label>
+<input name="adr" [(ngModel)]="address" required name="addr" #addr="ngModel">
+<br>
+<button class="buttons" type="submit" (click)="onSubmit()">Submit Address</button>
+<div *ngIf="submitAddressPressed">
+  <p *ngIf="firstName?.errors?.['pattern']">Only letters, hyphen and apostrophes are allowed on First Name field</p>
+  <p *ngIf="lastName?.errors?.['pattern']">Only letters, hyphen and apostrophes are allowed on Last Name field</p>
+  <p *ngIf="addr?.errors?.['required']">Street Address field is required</p>
+</div>
+
+</form>
+<br>
+
+<!-- dropdown Menu  -->
+
+<button class="buttons" (click)="addButtonPressed()">Add Item</button>
+<select name="items" id="items" [(ngModel)]="productSelection">
+  <option value=""></option>
+  <option value=0>Peaches</option>
+  <option value=1>Pears</option>
+  <option value=2>Plums</option>
+</select> 
+
+<div class="quantity">
+<label class="" for="qty">Qty</label>
+<input type="text" name="qty" [(ngModel)]="quantity">
+</div>
+
+<div *ngIf="addButtonClicked">
+ <p *ngIf="quantity == null">you didn't put quantity</p>
+ <p *ngIf="productSelection == null">Please select product</p>
+</div>
+<div *ngIf="productArray.length > 0"> 
+<table style="width:60%" class="table">
+  <tr>
+    <th>  </th>
+    <th>Qty</th>
+    <th>Unit Price</th>
+    <th>Amount</th>
+    <th>  </th>
+  </tr>
+
+    <tr *ngFor="let item of productArray" >
+      <td>{{item.item}}</td>
+      <td>{{item.qty}}</td>
+      <td>{{item.price}}</td>
+      <td>{{item.amount}}</td>
+      <button (click)="removeItem(item.id)">Delete</button>
+    </tr>
+
+
+  
+    <tr>
+      <td>Subtotal</td>
+      <td> </td>
+      <td> </td>
+      <td>{{subTotal}}</td>
+      <td>  </td>
+    </tr>
+    <tr>
+      <td>Taxes 7%</td>
+      <td> </td>
+      <td> </td>
+      <td>{{tax}}</td>
+      <td>  </td>
+    </tr>
+    <tr>
+      <td>Total</td>
+      <td> </td>
+      <td> </td>
+      <td>{{total}}</td>
+      <td>  </td>
+    </tr>
+  </table>
+</div>
+  
+
+  
+
+<div *ngIf="!firstName?.errors?.['pattern'] && 
+            !lastName?.errors?.['pattern'] &&
+            !addr?.errors?.['required']&&
+            submitAddressPressed
+            "
+            class="customerAddr">
+  <h3>Order for {{fName}} {{lName}} at {{address}}</h3>
+</div>

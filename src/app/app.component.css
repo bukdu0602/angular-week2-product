@@ -1,0 +1,28 @@
+
+
+input {
+    position: absolute;
+    left: 150px;
+}
+
+.buttons {
+    width: 140px;
+}
+
+select {
+    width: 170px;
+}
+.quantity {
+    display: inline;
+    position: relative;
+    padding-left: 80px;
+}
+
+.table {
+    text-align: center;
+}
+
+.customerAddr {
+    position: relative;
+    margin-top: 50px;
+}
